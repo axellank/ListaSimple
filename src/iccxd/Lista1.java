@@ -1,4 +1,4 @@
-package iccxd;
+package src.iccxd;
 
 public interface Lista1 {
 	
@@ -39,6 +39,3 @@ public interface Lista1 {
 	public boolean esVacia();
 	
 }
-
-Lista.java
-Mostrando Lista.java

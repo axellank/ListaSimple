@@ -1,4 +1,4 @@
-package iccxd;
+package src.iccxd;
 
 import java.util.NoSuchElementException;
 
@@ -35,8 +35,7 @@ public class Lista implements Lista1{
             cabeza = nodo;
             cola = nodo;
         } else {
-            nodo.setSiguiente(cabeza);
-            cabeza.setAnterior(nodo);
+            nodo.setSiguiente(cabeza);            
             cabeza = nodo;
         }
         longitud++;
@@ -50,7 +49,6 @@ public class Lista implements Lista1{
             cola = nodo;
         } else {
             cola.setSiguiente(nodo);
-            nodo.setAnterior(cola);
             cola = nodo;
         }
         longitud++;
@@ -58,36 +56,36 @@ public class Lista implements Lista1{
 
 	@Override
 	public void eliminarElemento(Nodo elemento) {
-	    Nodo actual = cabeza;
-	    while (actual != null) {
-	        if (actual.getElemento() == elemento.getElemento()) {
-	            if (actual == cabeza) {
-	                cabeza = actual.getSiguiente();
-	                if (cabeza != null) {
-	                    cabeza.setAnterior(null);
-	                } else {
-	                    cola = null;
-	                }
-	            } else {
-	                actual.getAnterior().setSiguiente(actual.getSiguiente());
-	                if (actual.getSiguiente() != null) {
-	                    actual.getSiguiente().setAnterior(actual.getAnterior());
-	                } else {
-	                    cola = actual.getAnterior();
-	                }
-	            }
-	            longitud--;
-	            return;
-	        }
-	        actual = actual.getSiguiente();
-	    }
-	    try {
-	        throw new NoSuchElementException();
-	    } catch (NoSuchElementException e) {
-	        System.out.println("El elemento no se encuentra en la lista.");
-	    }
+		Nodo actual = cabeza;
+		while (actual != null) {
+			if (actual.getElemento() == elemento.getElemento()) {
+				if (actual == cabeza) {
+					cabeza = actual.getSiguiente();
+					if (cabeza == null) {
+						cola = null;
+					}
+				} else {
+					Nodo anterior = cabeza;
+					while (anterior.getSiguiente() != actual) {
+						anterior = anterior.getSiguiente();
+					}
+					anterior.setSiguiente(actual.getSiguiente());
+					if (actual.getSiguiente() == null) {
+						cola = anterior;
+					}
+				}
+				longitud--;
+				return;
+			}
+			actual = actual.getSiguiente();
+		}
+		try {
+			throw new NoSuchElementException();
+		} catch (NoSuchElementException e) {
+			System.out.println("El elemento no se encuentra en la lista.");
+		}
 	}
-
+	
 	@Override
 	public Nodo buscarElemento(Nodo elemento) {
 		Nodo actual = cabeza;
@@ -103,13 +101,16 @@ public class Lista implements Lista1{
 
 	@Override
 	public void imprimirLista() {
-		// TODO Auto-generated method stub
-		
+	    Nodo actual = cabeza;
+	    while (actual != null) {
+	        System.out.print(actual.getElemento() + " ");
+	        actual = actual.getSiguiente();
+	    }
+	    System.out.println();
 	}
 
 	@Override
 	public boolean esVacia() {
-		// TODO Auto-generated method stub
-		return false;
+	    return longitud == 0;
 	}
 }
