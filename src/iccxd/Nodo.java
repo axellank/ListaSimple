@@ -1,4 +1,4 @@
-package src.iccxd;
+package iccxd;
 
 public class Nodo{
 	

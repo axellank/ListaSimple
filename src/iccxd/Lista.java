@@ -1,4 +1,4 @@
-package src.iccxd;
+package iccxd;
 
 import java.util.NoSuchElementException;
 
